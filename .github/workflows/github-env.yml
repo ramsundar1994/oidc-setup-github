@@ -8,6 +8,7 @@ on:
 jobs:
   load-env:
     runs-on: ubuntu-latest
+    environment: azurerm
     outputs:
       AZURE_CLIENT_ID: ${{ steps.export.outputs.AZURE_CLIENT_ID }}
       AZURE_TENANT_ID: ${{ steps.export.outputs.AZURE_TENANT_ID }}
@@ -24,3 +25,8 @@ jobs:
           echo "AZURE_TENANT_ID=$AZURE_TENANT_ID" >> $GITHUB_OUTPUT
           echo "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" >> $GITHUB_OUTPUT
           set +a
+      - name: Debug loaded values
+        run: |
+          echo "AZURE_CLIENT_ID starts with: ${AZURE_CLIENT_ID:0:8}..."
+          echo "AZURE_TENANT_ID starts with: ${AZURE_TENANT_ID:0:8}..."
+          echo "AZURE_SUBSCRIPTION_ID starts with: ${AZURE_SUBSCRIPTION_ID:0:8}..."
