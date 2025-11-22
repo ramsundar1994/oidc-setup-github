@@ -1,0 +1,26 @@
+name: Load Env Resuable
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+jobs:
+  load-env:
+    runs-on: ubuntu-latest
+    outputs:
+      AZURE_CLIENT_ID: ${{ steps.export.outputs.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ steps.export.outputs.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ steps.export.outputs.AZURE_SUBSCRIPTION_ID }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Load .env file
+        id: export
+        run: |
+          set -a
+          source ${{ inputs.working-directory }}/.env
+          echo "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" >> $GITHUB_OUTPUT
+          echo "AZURE_TENANT_ID=$AZURE_TENANT_ID" >> $GITHUB_OUTPUT
+          echo "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" >> $GITHUB_OUTPUT
+          set +a

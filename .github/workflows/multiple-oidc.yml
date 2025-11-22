@@ -1,0 +1,40 @@
+name: Main workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      solution:
+        description: "Select project"
+        required: true
+        type: choice
+        options:
+            - Development
+            - Testing
+            - Nonprod
+permissions:
+  id-token: write
+  contents: read
+jobs:
+  github-secrets:
+    uses: ./.github/workflows/github-env.yml
+    with:
+      working-directory: ${{inputs.solution}}
+  azure-login:
+    runs-on: ubuntu-latest
+    needs: fetch-secrets
+    environment: azurerm
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to Azure using OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ env.AZURE_CLIENT_ID }}
+          tenant-id: ${{ env.AZURE_TENANT_ID }}
+          subscription-id: ${{ env.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Run Azure CLI Command
+        run: |
+          az account show
+          az group list
