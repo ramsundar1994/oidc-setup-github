@@ -20,7 +20,7 @@ jobs:
         run: |
           set -a
           source ${{ inputs.working-directory }}/azurerm.env
-          echo "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" >> $GITHUB_OUTPUT
-          echo "AZURE_TENANT_ID=$AZURE_TENANT_ID" >> $GITHUB_OUTPUT
-          echo "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" >> $GITHUB_OUTPUT
+          echo "AZURE_CLIENT_ID=$AZURE_CLIENT_ID" >> $GITHUB_ENV
+          echo "AZURE_TENANT_ID=$AZURE_TENANT_ID" >> $GITHUB_ENV
+          echo "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" >> $GITHUB_ENV
           set +a
