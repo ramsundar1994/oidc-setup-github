@@ -24,3 +24,7 @@ jobs:
           echo "AZURE_TENANT_ID=$AZURE_TENANT_ID" >> $GITHUB_OUTPUT
           echo "AZURE_SUBSCRIPTION_ID=$AZURE_SUBSCRIPTION_ID" >> $GITHUB_OUTPUT
           set +a
+        env:   # 👈 set outputs as env here
+          AZURE_CLIENT_ID: ${{ needs.github-secrets.outputs.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ needs.github-secrets.outputs.AZURE_TENANT_ID }}
+          AZURE_SUBSCRIPTION_ID: ${{ needs.github-secrets.outputs.AZURE_SUBSCRIPTION_ID }}
