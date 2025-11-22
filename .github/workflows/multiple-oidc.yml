@@ -24,9 +24,9 @@ jobs:
     needs: github-secrets
     environment: azurerm
     env:
-      AZURE_CLIENT_ID: ${{ needs.fetch-secrets.outputs.AZURE_CLIENT_ID }}
-      AZURE_TENANT_ID: ${{ needs.fetch-secrets.outputs.AZURE_TENANT_ID }}
-      AZURE_SUBSCRIPTION_ID: ${{ needs.fetch-secrets.outputs.AZURE_SUBSCRIPTION_ID }}
+      AZURE_CLIENT_ID: ${{ needs.github-secrets.outputs.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ needs.github-secrets.outputs.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ needs.github-secrets.outputs.AZURE_SUBSCRIPTION_ID }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
