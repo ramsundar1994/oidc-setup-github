@@ -5,6 +5,16 @@ on:
       working-directory:
         required: true
         type: string
+    outputs:
+      AZURE_CLIENT_ID:
+        description: "Azure client ID"
+        value: ${{ jobs.load-env.outputs.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID:
+        description: "Azure tenant ID"
+        value: ${{ jobs.load-env.outputs.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID:
+        description: "Azure subscription ID"
+        value: ${{ jobs.load-env.outputs.AZURE_SUBSCRIPTION_ID }}
 jobs:
   load-env:
     runs-on: ubuntu-latest
