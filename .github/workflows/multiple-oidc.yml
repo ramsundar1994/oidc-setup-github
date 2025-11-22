@@ -22,6 +22,11 @@ jobs:
   azure-login:
     runs-on: ubuntu-latest
     needs: github-secrets
+    env:   # 👈 set outputs as env here
+      AZURE_CLIENT_ID: ${{ needs.github-secrets-secrets.outputs.AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ needs.github-secrets-secrets.outputs.AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ needs.github-secrets-secrets.outputs.AZURE_SUBSCRIPTION_ID }}
+
     environment: azurerm
     steps:
       - name: Checkout code
